@@ -1,0 +1,23 @@
+﻿@model IEnumerable<System.Security.Claims.Claim>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+	<table>
+		<tr>
+			<th>Type</th>
+			<th>Value</th>
+		</tr>
+		@foreach(var item in Model)
+		{
+			<tr>
+				<td>@item.Type</td>
+				<td>@item.Value</td>
+			</tr>
+		}
+	</table>
+
+<br/>
+
+<a href="@Url.Action("WebApi")">Access web api</a>
