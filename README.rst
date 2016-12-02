@@ -1,5 +1,5 @@
 ===============================
-Plumbery
+WSO2OAuthSampleClient
 ===============================
 
 .. image:: https://ci.appveyor.com/api/projects/status/dfbq28f64ni73ab1?svg=true
