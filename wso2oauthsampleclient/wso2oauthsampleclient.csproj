@@ -160,6 +160,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -173,8 +174,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\OAuthController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WSO2Controller.cs" />
     <Compile Include="Global.asax.cs">
@@ -207,7 +209,7 @@
     <Folder Include="Views\WSO2\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OWin.Security.Providers.WSO2\OWin.Security.Providers.WSO2.csproj">
+    <ProjectReference Include="..\Owin.Security.Providers.WSO2\OWin.Security.Providers.WSO2.csproj">
       <Project>{8fd3a9cb-e684-42c0-a8bf-7746fdd3d43c}</Project>
       <Name>OWin.Security.Providers.WSO2</Name>
     </ProjectReference>

@@ -8,8 +8,9 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Infrastructure;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Microsoft.Owin.Infrastructure;
 
-namespace OWin.Security.Providers.WSO2
+namespace Owin.Security.Providers.WSO2
 {
     internal class WSO2AuthenticationHandler : AuthenticationHandler<WSO2AuthenticationOptions>
     {
@@ -114,8 +115,6 @@ namespace OWin.Security.Providers.WSO2
                     context.Identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, context.Id, XmlSchemaString, Options.AuthenticationType));
                 }
 
-				context.Identity.AddClaim(new Claim(WSO2ClaimTypes.ClaimOAuthToken, accessToken, XmlSchemaString, Options.AuthenticationType));
-
 				context.Properties = properties;
 
                 await Options.Provider.Authenticated(context);
@@ -192,5 +191,55 @@ namespace OWin.Security.Providers.WSO2
 
             return Task.FromResult<object>(null);
         }
-    }
+
+		public override async Task<bool> InvokeAsync()
+		{
+			return await InvokeReplyPathAsync();
+		}
+
+		private async Task<bool> InvokeReplyPathAsync()
+		{
+			if (!Options.CallbackPath.HasValue || Options.CallbackPath != Request.Path) return false;
+			// TODO: error responses
+
+			var ticket = await AuthenticateAsync();
+			if (ticket == null)
+			{
+				_logger.WriteWarning("Invalid return state, unable to redirect.");
+				Response.StatusCode = 500;
+				return true;
+			}
+
+			var context = new WSO2ReturnEndpointContext(Context, ticket)
+			{
+				SignInAsAuthenticationType = Options.SignInAsAuthenticationType,
+				RedirectUri = ticket.Properties.RedirectUri
+			};
+
+			await Options.Provider.ReturnEndpoint(context);
+
+			if (context.SignInAsAuthenticationType != null &&
+				context.Identity != null)
+			{
+				var grantIdentity = context.Identity;
+				if (!string.Equals(grantIdentity.AuthenticationType, context.SignInAsAuthenticationType, StringComparison.Ordinal))
+				{
+					grantIdentity = new ClaimsIdentity(grantIdentity.Claims, context.SignInAsAuthenticationType, grantIdentity.NameClaimType, grantIdentity.RoleClaimType);
+				}
+				Context.Authentication.SignIn(context.Properties, grantIdentity);
+			}
+
+			if (context.IsRequestCompleted || context.RedirectUri == null) return context.IsRequestCompleted;
+			var redirectUri = context.RedirectUri;
+			if (context.Identity == null)
+			{
+				// add a redirect hint that sign-in failed in some way
+				redirectUri = WebUtilities.AddQueryString(redirectUri, "error", "access_denied");
+			}
+			Response.Redirect(redirectUri);
+			context.RequestCompleted();
+
+			return context.IsRequestCompleted;
+		}
+	}
 }

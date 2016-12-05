@@ -2,10 +2,12 @@
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-using OWin.Security.Providers.WSO2;
+using Owin.Security.Providers.WSO2;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace wso2oauthsampleclient
@@ -17,12 +19,25 @@ namespace wso2oauthsampleclient
 			app.UseCookieAuthentication(new CookieAuthenticationOptions()
 			{
 				AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-				LoginPath = new PathString("/OAuth/ExternalLogin"),
+				LoginPath = new PathString("/Account/ExternalLogin"),
 			});
 
 			app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
-			app.UseWSO2Authentication("https://localhost:9443/", "ZHINlCtvoTTusUSicVh1uGOIR5ga", "LLi6TjUNk8bufYHYd99jailIX18a");
+			app.UseWSO2Authentication(new WSO2AuthenticationOptions()
+			{
+				BaseUrl = ConfigurationManager.AppSettings["OAuthServer"],
+				ClientId = ConfigurationManager.AppSettings["clientId"],
+				ClientSecret = ConfigurationManager.AppSettings["clientSecret"],
+				Provider = new WSO2AuthenticationProvider()
+				{
+					OnAuthenticated = context => 
+					{
+						context.Response.Cookies.Append(Constants.AccessToken, context.AccessToken);
+						return Task.FromResult(true);
+					}
+				}
+			});
 		}
 	}
 }

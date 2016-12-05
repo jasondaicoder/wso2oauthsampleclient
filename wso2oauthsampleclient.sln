@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wso2oauthsampleclient", "wso2oauthsampleclient\wso2oauthsampleclient.csproj", "{512B4A8F-9B7A-4FC3-8CCC-E83A40D24CD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OWin.Security.Providers.WSO2", "OWin.Security.Providers.WSO2\OWin.Security.Providers.WSO2.csproj", "{8FD3A9CB-E684-42C0-A8BF-7746FDD3D43C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.WSO2", "Owin.Security.Providers.WSO2\Owin.Security.Providers.WSO2.csproj", "{8FD3A9CB-E684-42C0-A8BF-7746FDD3D43C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

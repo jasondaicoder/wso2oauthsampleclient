@@ -1,4 +1,4 @@
-﻿namespace OWin.Security.Providers.WSO2
+﻿namespace Owin.Security.Providers.WSO2
 {
 	internal static class Constants
 	{

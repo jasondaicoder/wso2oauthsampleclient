@@ -2,14 +2,14 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-// General Information about an assembly is controlled through the following 
+// General Information about an assembly is controlled through the follOwing 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("OWin.Security.Providers.WSO2")]
+[assembly: AssemblyTitle("Owin.Security.Providers.WSO2")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("OWin.Security.Providers.WSO2")]
+[assembly: AssemblyProduct("Owin.Security.Providers.WSO2")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,10 +19,10 @@ using System.Runtime.InteropServices;
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
-// The following GUID is for the ID of the typelib if this project is exposed to COM
+// The follOwing GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("8fd3a9cb-e684-42c0-a8bf-7746fdd3d43c")]
 
-// Version information for an assembly consists of the following four values:
+// Version information for an assembly consists of the follOwing four values:
 //
 //      Major Version
 //      Minor Version 

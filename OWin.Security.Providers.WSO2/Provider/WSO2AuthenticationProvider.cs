@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace OWin.Security.Providers.WSO2
+namespace Owin.Security.Providers.WSO2
 {
     public class WSO2AuthenticationProvider : IWSO2AuthenticationProvider
     {
@@ -21,7 +21,7 @@ namespace OWin.Security.Providers.WSO2
         /// <summary>
         /// Gets or sets the function that is invoked when the ReturnEndpoint method is invoked.
         /// </summary>
-        public Func<WSO2AuthenticatedContext, Task> OnReturnEndpoint { get; set; }
+        public Func<WSO2ReturnEndpointContext, Task> OnReturnEndpoint { get; set; }
 
         /// <summary>
         /// Gets or sets the delegate that is invoked when the ApplyRedirect method is invoked.
@@ -42,7 +42,7 @@ namespace OWin.Security.Providers.WSO2
         /// </summary>
         /// <param name="context"></param>
         /// <returns>A <see cref="Task"/> representing the completed operation.</returns>
-        public virtual Task ReturnEndpoint(WSO2AuthenticatedContext context) {
+        public virtual Task ReturnEndpoint(WSO2ReturnEndpointContext context) {
             return OnReturnEndpoint(context);
         }
 

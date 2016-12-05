@@ -6,8 +6,9 @@ using Microsoft.Owin.Security.DataHandler;
 using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.Infrastructure;
 using Owin;
+using Microsoft.Owin.Security;
 
-namespace OWin.Security.Providers.WSO2
+namespace Owin.Security.Providers.WSO2
 {
     public class WSO2AuthenticationMiddleware : AuthenticationMiddleware<WSO2AuthenticationOptions>
     {
@@ -16,7 +17,9 @@ namespace OWin.Security.Providers.WSO2
 
         public WSO2AuthenticationMiddleware(OwinMiddleware next, IAppBuilder app, WSO2AuthenticationOptions options) : base(next, options)
         {
-            if (string.IsNullOrWhiteSpace(Options.ClientId))
+			if (string.IsNullOrWhiteSpace(Options.BaseUrl))
+				throw new ArgumentException("Base url can not be null.");
+			if (string.IsNullOrWhiteSpace(Options.ClientId))
                 throw new ArgumentException("Client id can not be null.");
             if (string.IsNullOrWhiteSpace(Options.ClientSecret))
                 throw new ArgumentException("Client secret can not be null.");
@@ -34,7 +37,10 @@ namespace OWin.Security.Providers.WSO2
                 Options.StateDataFormat = new PropertiesDataFormat(dataProtector);
             }
 
-            _httpClient = new HttpClient(ResolveHttpMessageHandler(Options))
+			if (string.IsNullOrEmpty(Options.SignInAsAuthenticationType))
+				Options.SignInAsAuthenticationType = app.GetDefaultSignInAsAuthenticationType();
+
+			_httpClient = new HttpClient(ResolveHttpMessageHandler(Options))
             {
                 Timeout = Options.BackchannelTimeout,
                 MaxResponseContentBufferSize = 1024*1024*10

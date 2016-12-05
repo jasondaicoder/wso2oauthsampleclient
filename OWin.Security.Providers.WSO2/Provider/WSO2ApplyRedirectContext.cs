@@ -7,15 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OWin.Security.Providers.WSO2
+namespace Owin.Security.Providers.WSO2
 {
 	public class WSO2ApplyRedirectContext : BaseContext<WSO2AuthenticationOptions>
 	{
 		/// <summary>
 		/// Creates a new context object.
 		/// </summary>
-		/// <param name="context">The OWIN request context</param>
-		/// <param name="options">The LinkedIn middleware options</param>
+		/// <param name="context">The Owin request context</param>
+		/// <param name="options">The wso2 middleware options</param>
 		/// <param name="properties">The authenticaiton properties of the challenge</param>
 		/// <param name="redirectUri">The initial redirect URI</param>
 		public WSO2ApplyRedirectContext(IOwinContext context, WSO2AuthenticationOptions options,

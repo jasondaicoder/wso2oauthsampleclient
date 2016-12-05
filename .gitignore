@@ -1,8 +1,6 @@
 packages/
 **/bin
 **/obj
-Web/CloudGate.Web/bower_components/
-Web/CloudGate.Web/node_modules/
-Web/CloudGate.Web/public/
 .vs/
 *.user
+**/Properties/PublishProfiles

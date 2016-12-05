@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 
-namespace OWin.Security.Providers.WSO2
+namespace Owin.Security.Providers.WSO2
 {
     public class WSO2AuthenticationOptions : AuthenticationOptions
     {
-        public WSO2AuthenticationOptions() : base("WSO2")
+        public WSO2AuthenticationOptions() : base(Constants.DefaultAuthenticationType)
         {
-			CallbackPath = new PathString("/OAuth/ExternalLoginCallback");
+			Caption = Constants.DefaultAuthenticationType;
+			CallbackPath = new PathString("/signin-wso2");
 			AuthenticationMode = AuthenticationMode.Passive;
 			BackchannelTimeout = TimeSpan.FromSeconds(60);
 		}
@@ -45,7 +46,16 @@ namespace OWin.Security.Providers.WSO2
         ///     The back channel timeout in milliseconds.
         /// </value>
         public TimeSpan BackchannelTimeout { get; set; }
-        
+
+		/// <summary>
+		///     Get or sets the text that the user can display on a sign in user interface.
+		/// </summary>
+		public string Caption
+		{
+			get { return Description.Caption; }
+			set { Description.Caption = value; }
+		}
+
 		public string ClientId { get; set; }
 
 		public string ClientSecret { get; set;}
@@ -55,7 +65,7 @@ namespace OWin.Security.Providers.WSO2
         /// <summary>
         ///     The request path within the application's base path where the user-agent will be returned.
         ///     The middleware will process this request when it arrives.
-        ///     Default value is "/signin-linkedin".
+        ///     Default value is "/signin-wso2".
         /// </summary>
         public PathString CallbackPath { get; set; }
 
@@ -64,6 +74,17 @@ namespace OWin.Security.Providers.WSO2
         /// <summary>
         ///     Gets or sets the type used to secure data handled by the middleware.
         /// </summary>
-        public ISecureDataFormat<AuthenticationProperties> StateDataFormat { get; set; }        
-    }
+        public ISecureDataFormat<AuthenticationProperties> StateDataFormat { get; set; }
+
+		/// <summary>
+		/// A list of permissions to request.
+		/// </summary>
+		public IList<string> Scope { get; private set; }
+
+		/// <summary>
+		///     Gets or sets the name of another authentication middleware which will be responsible for actually issuing a user
+		///     <see cref="System.Security.Claims.ClaimsIdentity" />.
+		/// </summary>
+		public string SignInAsAuthenticationType { get; set; }
+	}
 }

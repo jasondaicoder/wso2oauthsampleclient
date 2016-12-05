@@ -12,7 +12,7 @@ namespace Owin.Security.Providers.WSO2
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="context">OWIN environment</param>
+        /// <param name="context">Owin environment</param>
         /// <param name="ticket">The authentication ticket</param>
         public WSO2ReturnEndpointContext(
             IOwinContext context,

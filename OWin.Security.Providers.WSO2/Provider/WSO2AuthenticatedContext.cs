@@ -4,7 +4,7 @@ using Microsoft.Owin;
 using Newtonsoft.Json.Linq;
 using Microsoft.Owin.Security;
 
-namespace OWin.Security.Providers.WSO2
+namespace Owin.Security.Providers.WSO2
 {
     public class WSO2AuthenticatedContext : BaseContext
     {
