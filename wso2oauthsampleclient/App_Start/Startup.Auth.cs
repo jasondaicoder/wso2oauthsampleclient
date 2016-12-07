@@ -3,16 +3,13 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using Owin.Security.Providers.WSO2;
-using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
+using System.Security.Claims;
 
 namespace wso2oauthsampleclient
 {
-	public partial class Startup
+    public partial class Startup
 	{
 		public void ConfigureOAuth(IAppBuilder app)
 		{
@@ -33,7 +30,7 @@ namespace wso2oauthsampleclient
 				{
 					OnAuthenticated = context => 
 					{
-						context.Response.Cookies.Append(Constants.AccessToken, context.AccessToken);
+						context.Identity.AddClaim(new Claim(Constants.AccessToken, context.AccessToken));
 						return Task.FromResult(true);
 					}
 				}

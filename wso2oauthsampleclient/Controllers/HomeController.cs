@@ -24,7 +24,7 @@ namespace wso2oauthsampleclient.Controllers
 			httpClient.DefaultRequestHeaders.Authorization =
 				new System.Net.Http.Headers.AuthenticationHeaderValue(
 					"Bearer",
-					Request.GetOwinContext().Request.Cookies.FirstOrDefault(c => c.Key.Equals(Constants.AccessToken)).Value);
+					ClaimsPrincipal.Current.Claims.FirstOrDefault(claim => claim.Type.Equals(Constants.AccessToken)).Value);
 
 			var response = await httpClient.GetAsync(ConfigurationManager.AppSettings["apiBaseUrl"] + "wso2oauthsample/api/user/hello");
 
